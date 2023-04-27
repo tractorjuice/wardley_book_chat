@@ -1,5 +1,4 @@
 langchain
 openai
 streamlit
-gpt_index
 faiss-cpu
