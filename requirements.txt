@@ -1,0 +1,8 @@
+langchain
+openai
+streamlit
+streamlit-chat
+tiktoken
+llama_index
+gpt_index
+faiss-cpu
