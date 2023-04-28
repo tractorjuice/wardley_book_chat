@@ -8,6 +8,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
+model = "gpt-4" # Replace with the version of the api you have access
 
 st.set_page_config(page_title="Chat with Simon Wardley's Book")
 st.title("Chat with Simon Wardley's Book")
@@ -20,7 +21,7 @@ st.sidebar.markdown("May run out of OpenAI credits")
 
 # Get datastore
 DATA_STORE_DIR = "data_store"
-model = "gpt-4" # Replace with the version of the api you have access
+model = model
 
 if os.path.exists(DATA_STORE_DIR):
   #st.write("Loading database")
