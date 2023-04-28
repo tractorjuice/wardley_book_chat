@@ -20,6 +20,7 @@ st.sidebar.markdown("May run out of OpenAI credits")
 
 # Get datastore
 DATA_STORE_DIR = "data_store"
+model = "gpt-4" # Replace with the version of the api you have access
 
 if os.path.exists(DATA_STORE_DIR):
   #st.write("Loading database")
@@ -48,7 +49,7 @@ messages = [
 prompt = ChatPromptTemplate.from_messages(messages)
 
 chain_type_kwargs = {"prompt": prompt}
-llm = ChatOpenAI(model_name="gpt-4", temperature=0, max_tokens=256)  # Modify model_name if you have access to GPT-4
+llm = ChatOpenAI(model_name=model, temperature=0, max_tokens=256)  # Modify model_name if you have access to GPT-4
 chain = RetrievalQAWithSourcesChain.from_chain_type(
     llm=llm,
     chain_type="stuff",
