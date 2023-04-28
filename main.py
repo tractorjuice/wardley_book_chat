@@ -48,7 +48,7 @@ messages = [
 prompt = ChatPromptTemplate.from_messages(messages)
 
 chain_type_kwargs = {"prompt": prompt}
-llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, max_tokens=256)  # Modify model_name if you have access to GPT-4
+llm = ChatOpenAI(model_name="GPT4", temperature=0, max_tokens=256)  # Modify model_name if you have access to GPT-4
 chain = RetrievalQAWithSourcesChain.from_chain_type(
     llm=llm,
     chain_type="stuff",
