@@ -7,6 +7,7 @@ from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 
+# Set OpenAI Model and API key
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 model = "gpt-4" # Replace with the version of the api you have access
 
@@ -17,9 +18,6 @@ st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)"
 st.sidebar.markdown("Current Version: 0.0.2")
 st.sidebar.markdown("Not optimised")
 st.sidebar.markdown("May run out of OpenAI credits")
-
-# Set OpenAI Model
-model = model
 
 # Get datastore
 DATA_STORE_DIR = "data_store"
