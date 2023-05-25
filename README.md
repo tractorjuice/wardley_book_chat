@@ -26,10 +26,11 @@ To run this code, you need the following Python packages:
 
 You can install these dependencies via pip:
 
-shell
-Copy code
-pip install openai streamlit langchain faiss-cpu
-
+shell\
+Copy code\
+\
+pip install openai streamlit langchain faiss-cpu\
+\
 Note: Replace faiss-cpu with faiss-gpu if you are using a GPU.
 
 ### API Keys
