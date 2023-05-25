@@ -4,14 +4,14 @@ Chat with Simon Wardley's Book on Wardley Mapping
 Chat with Simon Wardley's Book is an AI-based application that allows you to interact with the content of Simon Wardley's book using GPT-4 model and OpenAI API. It utilizes the Streamlit framework to present an interactive user interface, making it easy for users to ask questions and get answers.
 
 ## Features
-Querying the book using natural language and AI.
-Incorporates OpenAI's GPT-4 model for generating answers.
-Uses Streamlit for a user-friendly UI.
+- Querying the book using natural language and AI.
+- Incorporates OpenAI's GPT-4 model for generating answers.
+- Uses Streamlit for a user-friendly UI.
 How to Run
-Clone the repository.
-Set the OpenAI API key in the Streamlit secrets manager.
-Ensure you have the index.faiss and index.pkl files in the data_store directory.
-Run the streamlit app using the command streamlit run app.py (replace app.py with the correct filename).
+Clone the repository./
+Set the OpenAI API key in the Streamlit secrets manager./
+Ensure you have the index.faiss and index.pkl files in the data_store directory./
+Run the streamlit app using the command streamlit run app.py (replace app.py with the correct filename)./
 
 ## Dependencies
 To run this code, you need the following Python packages:
