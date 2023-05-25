@@ -52,4 +52,4 @@ This application is not optimized and may run out of OpenAI credits. Also, Wardl
 Please use responsibly and in accordance with OpenAI's use-case policy.
 
 ## License
-This project is open source, 
+This project is licensed under Creative Commons Attribution Share-Alike.
