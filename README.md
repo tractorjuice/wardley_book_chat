@@ -9,10 +9,10 @@ Chat with Simon Wardley's Book is an AI-based application that allows you to int
 - Uses Streamlit for a user-friendly UI.
 
 ## How to Run
-Clone the repository.\
-Set the OpenAI API key in the Streamlit secrets manager.\
-Ensure you have the index.faiss and index.pkl files in the data_store directory.\
-Run the streamlit app using the command streamlit run app.py (replace app.py with the correct filename).\
+1. Clone the repository.\
+2. Set the OpenAI API key in the Streamlit secrets manager.\
+3. Ensure you have the index.faiss and index.pkl files in the data_store directory.\
+4. Run the streamlit app using the command streamlit run main.py.\
 
 ## Dependencies
 To run this code, you need the following Python packages:
