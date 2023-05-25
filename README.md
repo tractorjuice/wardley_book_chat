@@ -24,15 +24,6 @@ To run this code, you need the following Python packages:
 - langchain
 - FAISS
 
-You can install these dependencies via pip:
-
-shell\
-Copy code\
-\
-pip install openai streamlit langchain faiss-cpu\
-\
-Note: Replace faiss-cpu with faiss-gpu if you are using a GPU.
-
 ### API Keys
 The application uses the OpenAI API. You will need to obtain an API key from OpenAI and set it in the Streamlit secrets manager.
 
