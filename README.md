@@ -16,12 +16,12 @@ Run the streamlit app using the command streamlit run app.py (replace app.py wit
 ## Dependencies
 To run this code, you need the following Python packages:
 
-os
-re
-openai
-streamlit
-langchain
-FAISS
+- os
+- re
+- openai
+- streamlit
+- langchain
+- FAISS
 
 You can install these dependencies via pip:
 
