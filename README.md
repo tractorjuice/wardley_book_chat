@@ -2,6 +2,8 @@
 Chat with Simon Wardley's Book on Wardley Mapping
 
 Chat with Simon Wardley's Book is an AI-based application that allows you to interact with the content of Simon Wardley's book using GPT-4 model and OpenAI API. It utilizes the Streamlit framework to present an interactive user interface, making it easy for users to ask questions and get answers.
+\
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://wardley-book-chat.streamlit.app/)
 
 ## Features
 - Querying the book using natural language and AI.
