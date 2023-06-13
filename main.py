@@ -9,7 +9,14 @@ from langchain.vectorstores import FAISS
 
 # Set OpenAI Model and API key
 openai.api_key = st.secrets["OPENAI_API_KEY"]
-model = "gpt-4" # Replace with the version of the api you have access
+#MODEL = "gpt-3"
+#MODEL = "gpt-3.5-turbo"
+#MODEL = "gpt-3.5-turbo-0613"
+#MODEL = "gpt-3.5-turbo-16k"
+#MODEL = "gpt-3.5-turbo-16k-0613"
+MODEL = "gpt-4"
+#MODEL = "gpt-4-0613"
+#MODEL = "gpt-4-32k-0613"
 
 st.set_page_config(page_title="Chat with Simon Wardley's Book")
 st.title("Chat with Simon Wardley's Book")
@@ -54,7 +61,7 @@ messages = [
 prompt = ChatPromptTemplate.from_messages(messages)
 
 chain_type_kwargs = {"prompt": prompt}
-llm = ChatOpenAI(model_name=model, temperature=0, max_tokens=256)  # Modify model_name if you have access to GPT-4
+llm = ChatOpenAI(model_name=MODEL, temperature=0, max_tokens=256)  # Modify model_name if you have access to GPT-4
 chain = RetrievalQAWithSourcesChain.from_chain_type(
     llm=llm,
     chain_type="stuff",
