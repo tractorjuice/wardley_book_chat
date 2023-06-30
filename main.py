@@ -36,6 +36,7 @@ st.sidebar.markdown("Wardley Mapping is provided courtesy of Simon Wardley and l
 DATA_STORE_DIR = "data_store"
 
 if "messages" not in st.session_state:
+    print("starting to do it")
     st.session_state.messages = []
 
     if os.path.exists(DATA_STORE_DIR):
