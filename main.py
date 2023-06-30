@@ -87,7 +87,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-if prompt := st.chat_input("What question do you have for the book?"):
+if query := st.chat_input("What question do you have for the book?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -95,6 +95,6 @@ if prompt := st.chat_input("What question do you have for the book?"):
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         response = ""
-        response = chain(prompt)
+        response = chain(query)
         message_placeholder.markdown(result['answer'])
     st.session_state.messages.append({"role": "assistant", "content": result['answer']})
