@@ -88,9 +88,9 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 if query := st.chat_input("What question do you have for the book?"):
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.session_state.messages.append({"role": "user", "content": query})
     with st.chat_message("user"):
-        st.markdown(prompt)
+        st.markdown(query)
 
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
