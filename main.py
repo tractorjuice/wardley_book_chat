@@ -14,8 +14,8 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 #MODEL = "gpt-3.5-turbo-0613"
 #MODEL = "gpt-3.5-turbo-16k"
 #MODEL = "gpt-3.5-turbo-16k-0613"
-MODEL = "gpt-4"
-#MODEL = "gpt-4-0613"
+#MODEL = "gpt-4"
+MODEL = "gpt-4-0613"
 #MODEL = "gpt-4-32k-0613"
 
 st.set_page_config(page_title="Chat with Simon Wardley's Book")
@@ -35,7 +35,6 @@ st.sidebar.markdown("Wardley Mapping is provided courtesy of Simon Wardley and l
 DATA_STORE_DIR = "data_store"
 
 if os.path.exists(DATA_STORE_DIR):
-  #st.write("Loading database")
   vector_store = FAISS.load_local(
       DATA_STORE_DIR,
       OpenAIEmbeddings()
