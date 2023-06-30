@@ -21,14 +21,14 @@ MODEL = "gpt-4-0613"
 st.set_page_config(page_title="Chat with Simon Wardley's Book")
 st.title("Chat with Simon Wardley's Book")
 st.sidebar.markdown("# Query this book using AI")
-st.divider()
+st.sidebar.divider()
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
 st.sidebar.markdown("Current Version: 0.1.4")
-st.divider()
+st.sidebar.divider()
 st.sidebar.markdown("Using GPT-4 API")
 st.sidebar.markdown("Not optimised")
 st.sidebar.markdown("May run out of OpenAI credits")
-st.divider()
+st.sidebar.divider()
 st.sidebar.markdown("Wardley Mapping is provided courtesy of Simon Wardley and licensed Creative Commons Attribution Share-Alike.")
 
 # Get datastore
