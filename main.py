@@ -77,9 +77,6 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(
 #st.write("### Answer:")
 #st.write(result['answer'])
 
-if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = MODEL
-
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -94,7 +91,7 @@ if query := st.chat_input("What question do you have for the book?"):
 
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
-        response = ""
         response = chain(query)
+        st.code(response)
         message_placeholder.markdown(response['answer'])
     st.session_state.messages.append({"role": "assistant", "content": response['answer']})
