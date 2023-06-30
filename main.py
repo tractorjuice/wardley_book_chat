@@ -92,6 +92,6 @@ if query := st.chat_input("What question do you have for the book?"):
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         response = chain(query)
-        st.code(response)
+        st.code(response['answer'])
         message_placeholder.markdown(response['answer'])
     st.session_state.messages.append({"role": "assistant", "content": response['answer']})
