@@ -72,6 +72,7 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(
 with st.spinner("Thinking..."):
     query = st.text_input("Question for the book?", value="What questions can I ask about this book?")
     result = chain(query)
-    
+    st.code (result)
+  
 st.write("### Answer:")
 st.write(result['answer'])
