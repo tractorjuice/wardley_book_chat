@@ -69,10 +69,32 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(
     chain_type_kwargs=chain_type_kwargs
 )
 
-with st.spinner("Thinking..."):
-    query = st.text_input("Question for the book?", value="What questions can I ask about this book?")
-    result = chain(query)
-    st.code (result)
+#with st.spinner("Thinking..."):
+#    query = st.text_input("Question for the book?", value="What questions can I ask about this book?")
+#    result = chain(query)
+#    st.code (result)
   
-st.write("### Answer:")
-st.write(result['answer'])
+#st.write("### Answer:")
+#st.write(result['answer'])
+
+if "openai_model" not in st.session_state:
+    st.session_state["openai_model"] = MODEL
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+if prompt := st.chat_input("What question do you have for the book?"):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    with st.chat_message("assistant"):
+        message_placeholder = st.empty()
+        response = ""
+        response = chain(query)
+        message_placeholder.markdown(result['answer'])
+    st.session_state.messages.append({"role": "assistant", "content": result['answer']})
