@@ -95,6 +95,6 @@ if prompt := st.chat_input("What question do you have for the book?"):
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         response = ""
-        response = chain(query)
+        response = chain(prompt)
         message_placeholder.markdown(result['answer'])
     st.session_state.messages.append({"role": "assistant", "content": result['answer']})
