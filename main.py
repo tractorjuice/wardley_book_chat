@@ -53,11 +53,11 @@ Take note of the sources and include them in the answer in the format: "SOURCES:
 If you don't know the answer, just say that "I don't know", don't try to make up an answer.
 ----------------
 {summaries}"""
-messages = [
+prompt_messages = [
     SystemMessagePromptTemplate.from_template(system_template),
     HumanMessagePromptTemplate.from_template("{question}")
     ]
-prompt = ChatPromptTemplate.from_messages(messages)
+prompt = ChatPromptTemplate.from_messages(prompt_messages)
 
 chain_type_kwargs = {"prompt": prompt}
 llm = ChatOpenAI(model_name=MODEL, temperature=0, max_tokens=256)  # Modify model_name if you have access to GPT-4
