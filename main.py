@@ -47,7 +47,6 @@ if "messages" not in st.session_state:
         st.write(f"Missing files. Upload index.faiss and index.pkl files to {DATA_STORE_DIR} directory first")
   
     system_template="""Use the following pieces of context to answer the users question.
-    Take note of the sources and include them in the answer in the format: "SOURCES: source1 source2", use "SOURCES" in capital letters regardless of the number of sources.
     If you don't know the answer, just say that "I don't know", don't try to make up an answer.
     ----------------
     {summaries}"""
@@ -59,6 +58,7 @@ if "messages" not in st.session_state:
     
     chain_type_kwargs = {"prompt": prompt}
     llm = ChatOpenAI(model_name=MODEL, temperature=0, max_tokens=300)  # Modify model_name if you have access to GPT-4
+    print("done chain stuff")
     chain = RetrievalQAWithSourcesChain.from_chain_type(
         llm=llm,
         chain_type="stuff",
