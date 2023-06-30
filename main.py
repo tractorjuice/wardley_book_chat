@@ -68,8 +68,9 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(
 )
 
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+    if message["role"] in ["user", "assistant"]:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
 
 if query := st.chat_input("What question do you have for the book?"):
     st.session_state.messages.append({"role": "user", "content": query})
