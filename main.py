@@ -7,7 +7,6 @@ from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.prompts.chat import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
-from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 # Set OpenAI Model and API key
 openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -58,7 +57,7 @@ prompt_messages = [
 prompt = ChatPromptTemplate.from_messages(prompt_messages)
 
 chain_type_kwargs = {"prompt": prompt}
-llm = ChatOpenAI(streaming=True, callbacks=[StreamingStdOutCallbackHandler()], model_name=MODEL, temperature=0, max_tokens=300)  # Modify model_name if you have access to GPT-4
+llm = ChatOpenAI(model_name=MODEL, temperature=0, max_tokens=300)  # Modify model_name if you have access to GPT-4
 print("done chain stuff")
 chain = RetrievalQAWithSourcesChain.from_chain_type(
     llm=llm,
