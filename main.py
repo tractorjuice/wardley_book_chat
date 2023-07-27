@@ -57,7 +57,7 @@ prompt_messages = [
 prompt = ChatPromptTemplate.from_messages(prompt_messages)
 
 chain_type_kwargs = {"prompt": prompt}
-llm = ChatOpenAI(model_name=MODEL, temperature=0, max_tokens=300)  # Modify model_name if you have access to GPT-4
+llm = ChatOpenAI(model_name=MODEL, temperature=0, max_tokens=1000)  # Modify model_name if you have access to GPT-4
 print("done chain stuff")
 chain = RetrievalQAWithSourcesChain.from_chain_type(
     llm=llm,
