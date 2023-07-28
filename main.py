@@ -19,9 +19,11 @@ MODEL = "gpt-3.5-turbo-16k-0613"
 #MODEL = "gpt-4-0613"
 #MODEL = "gpt-4-32k-0613"
 
+# Remove HTML from sources
+from bs4 import BeautifulSoup
 def remove_html_tags(text):
-    clean = re.compile('<.*?>')
-    return re.sub(clean, '', text)
+    soup = BeautifulSoup(text, "html.parser")
+    return soup.get_text()
 
 st.set_page_config(page_title="Chat with Simon Wardley's Book")
 st.title("Chat with Simon Wardley's Book")
