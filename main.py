@@ -25,6 +25,22 @@ def remove_html_tags(text):
     soup = BeautifulSoup(text, "html.parser")
     return soup.get_text()
 
+def remove_markdown(text):
+    # Remove headers (e.g., # Header)
+    text = re.sub(r'#.*$', '', text, flags=re.MULTILINE)
+    # Remove bold/italic (e.g., **bold**, *italic*)
+    text = re.sub(r'\*.*\*', '', text)
+    # Remove links (e.g., [text](url))
+    text = re.sub(r'\[.*\]\(.*\)', '', text)
+    # Remove lists (e.g., - item)
+    text = re.sub(r'- .*$', '', text, flags=re.MULTILINE)
+    return text
+
+def clean_text(text):
+    text = remove_html_tags(text)
+    text = remove_markdown(text)
+    return text
+
 st.set_page_config(page_title="Chat with Simon Wardley's Book")
 st.title("Chat with Simon Wardley's Book")
 st.sidebar.markdown("# Query Simon's book using AI")
@@ -97,8 +113,8 @@ if query := st.chat_input("What question do you have for the book?"):
             for index, document in enumerate(source_documents):
                 if 'source' in document.metadata:
                     source_details = document.metadata['source']
-                    cleaned_content = remove_html_tags(document.page_content)
-                    st.markdown(f"Source {index + 1}:", source_details[source_details.find('/index'):])
-                    st.markdown(f"Page Content:\n {cleaned_content}\n")
+                    cleaned_content = clean_text(document.page_content)
+                    st.write(f"Source {index + 1}:", source_details[source_details.find('/index'):])
+                    st.write(f"Page Content:\n {cleaned_content}\n")
 
         st.session_state.messages.append({"role": "assistant", "content": response['answer']})
