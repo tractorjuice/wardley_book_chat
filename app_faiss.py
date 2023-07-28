@@ -114,7 +114,7 @@ if query := st.chat_input("What question do you have for the book?"):
                     source_details = document.metadata['source']
                     cleaned_content = clean_text(document.page_content)
                     st.write(f"Source {index + 1}: Page {document.metadata['page']}\n")
-                    st.write(f"Page Content:\n {cleaned_content}\n")
+                    st.write(f"{cleaned_content}\n")
                     st.divider()
 
         st.session_state.messages.append({"role": "assistant", "content": response['answer']})
