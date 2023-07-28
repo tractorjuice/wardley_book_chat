@@ -35,9 +35,6 @@ st.sidebar.markdown("Wardley Mapping is provided courtesy of Simon Wardley and l
 # Get datastore
 DATA_STORE_DIR = "data_store"
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
 if os.path.exists(DATA_STORE_DIR):
     vector_store = FAISS.load_local(
         DATA_STORE_DIR,
@@ -57,8 +54,12 @@ prompt_messages = [
 prompt = ChatPromptTemplate.from_messages(prompt_messages)
 
 chain_type_kwargs = {"prompt": prompt}
-llm = ChatOpenAI(model_name=MODEL, temperature=0, max_tokens=1000)  # Modify model_name if you have access to GPT-4
-print("done chain stuff")
+llm = ChatOpenAI(
+    model_name=MODEL,
+    temperature=0,
+    max_tokens=1000
+)  # Modify model_name if you have access to GPT-4
+
 chain = RetrievalQAWithSourcesChain.from_chain_type(
     llm=llm,
     chain_type="stuff",
@@ -66,6 +67,9 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(
     return_source_documents=True,
     chain_type_kwargs=chain_type_kwargs
 )
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
 for message in st.session_state.messages:
     if message["role"] in ["user", "assistant"]:
