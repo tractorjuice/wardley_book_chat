@@ -19,6 +19,10 @@ MODEL = "gpt-3.5-turbo-16k-0613"
 #MODEL = "gpt-4-0613"
 #MODEL = "gpt-4-32k-0613"
 
+def remove_html_tags(text):
+    clean = re.compile('<.*?>')
+    return re.sub(clean, '', text)
+
 st.set_page_config(page_title="Chat with Simon Wardley's Book")
 st.title("Chat with Simon Wardley's Book")
 st.sidebar.markdown("# Query Simon's book using AI")
@@ -90,7 +94,12 @@ if query := st.chat_input("What question do you have for the book?"):
             for index, document in enumerate(source_documents):
                 if 'source' in document.metadata:
                     source_details = document.metadata['source']
-                    st.write(f"Source {index + 1}:", source_details[source_details.find('/index'):],"\n")
-                    st.write(f"Page Content:\n {document.page_content}\n")
+                    #st.write(f"Source {index + 1}:", source_details[source_details.find('/index'):],"\n")
+                    #st.write(f"Page Content:\n {document.page_content}\n")
+
+                    cleaned_source = remove_html_tags(source_details[source_details.find('/index'):])
+                    cleaned_content = remove_html_tags(document.page_content)
+                    st.write(f"Source {index + 1}:", cleaned_source,"\n")
+                    st.write(f"Page Content:\n {cleaned_content}\n")
 
         st.session_state.messages.append({"role": "assistant", "content": response['answer']})
