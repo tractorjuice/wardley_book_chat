@@ -20,10 +20,9 @@ MODEL = "gpt-3.5-turbo-16k-0613"
 #MODEL = "gpt-4-32k-0613"
 
 # Remove HTML from sources
-from bs4 import BeautifulSoup
 def remove_html_tags(text):
-    soup = BeautifulSoup(text, "html.parser")
-    return soup.get_text()
+    clean = re.compile('<.*?>')
+    return re.sub(clean, '', text)
 
 def remove_markdown(text):
     # Remove headers (e.g., # Header)
