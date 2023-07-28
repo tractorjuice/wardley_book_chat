@@ -86,7 +86,7 @@ if query := st.chat_input("What question do you have for the book?"):
             response = chain(query)
             st.markdown(response['answer'])
 
-            source_documents = result['source_documents']
+            source_documents = response['source_documents']
             for index, document in enumerate(source_documents):
                 st.write(f"Source {index + 1}: {document.metadata['source']}\n")
                 st.write(f"Page Content:\n {document.page_content}\n")
