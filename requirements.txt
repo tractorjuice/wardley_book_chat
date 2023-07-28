@@ -2,4 +2,3 @@ langchain
 openai
 streamlit
 faiss-cpu
-promptlayer
