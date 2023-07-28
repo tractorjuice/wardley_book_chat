@@ -90,7 +90,7 @@ if query := st.chat_input("What question do you have for the book?"):
     with st.spinner():
         with st.chat_message("assistant"):
             response = chain(query)
-            st.markdown(response)
+            st.markdown(response['answer'])
             st.divider()
 
             source_documents = response['source_documents']
@@ -101,4 +101,4 @@ if query := st.chat_input("What question do you have for the book?"):
                     st.write(f"Source {index + 1}:", source_details[source_details.find('/index'):])
                     st.write(f"Page Content:\n {cleaned_content}\n")
 
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.session_state.messages.append({"role": "assistant", "content": response['answer']})
