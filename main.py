@@ -93,13 +93,12 @@ if query := st.chat_input("What question do you have for the book?"):
             st.markdown(response['answer'])
             st.divider()
             
-
             source_documents = response['source_documents']
             for index, document in enumerate(source_documents):
                 if 'source' in document.metadata:
                     source_details = document.metadata['source']
                     cleaned_content = remove_html_tags(document.page_content)
-                    st.write(f"Source {index + 1}:", source_details[source_details.find('/index'):])
-                    st.write(f"Page Content:\n {cleaned_content}\n")
+                    st.markdown(f"Source {index + 1}:", source_details[source_details.find('/index'):])
+                    st.markdown(f"Page Content:\n {cleaned_content}\n")
 
         st.session_state.messages.append({"role": "assistant", "content": response['answer']})
