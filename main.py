@@ -116,5 +116,6 @@ if query := st.chat_input("What question do you have for the book?"):
                     cleaned_content = clean_text(document.page_content)
                     st.write(f"Source {index + 1}:", source_details[source_details.find('/index'):])
                     st.write(f"Page Content:\n {cleaned_content}\n")
+                    st.divider()
 
         st.session_state.messages.append({"role": "assistant", "content": response['answer']})
