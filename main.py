@@ -86,22 +86,21 @@ if query := st.chat_input("What question do you have for the book?"):
     st.session_state.messages.append({"role": "user", "content": query})
     with st.chat_message("user"):
         st.markdown(query)
-      
+
     with st.spinner():
         with st.chat_message("assistant"):
             response = chain(query)
-            st.markdown(response['answer'])
+            cleaned_response = remove_html_tags(response['answer'])
+            st.markdown(cleaned_response)
 
             source_documents = response['source_documents']
             for index, document in enumerate(source_documents):
                 if 'source' in document.metadata:
                     source_details = document.metadata['source']
-                    #st.write(f"Source {index + 1}:", source_details[source_details.find('/index'):],"\n")
-                    #st.write(f"Page Content:\n {document.page_content}\n")
-
                     cleaned_source = remove_html_tags(source_details[source_details.find('/index'):])
                     cleaned_content = remove_html_tags(document.page_content)
                     st.write(f"Source {index + 1}:", cleaned_source,"\n")
                     st.write(f"Page Content:\n {cleaned_content}\n")
 
-        st.session_state.messages.append({"role": "assistant", "content": response['answer']})
+        st.session_state.messages.append({"role": "assistant", "content": cleaned_response})
+
