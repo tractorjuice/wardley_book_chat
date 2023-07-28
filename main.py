@@ -91,7 +91,7 @@ if query := st.chat_input("What question do you have for the book?"):
         with st.chat_message("assistant"):
             response = chain(query)
             cleaned_response = remove_html_tags(response['answer'])
-            st.markdown(cleaned_response)
+            #st.markdown(cleaned_response)
 
             source_documents = response['source_documents']
             for index, document in enumerate(source_documents):
