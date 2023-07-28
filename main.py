@@ -92,6 +92,7 @@ if query := st.chat_input("What question do you have for the book?"):
             response = chain(query)
             st.markdown(response['answer'])
             st.divider()
+            
 
             source_documents = response['source_documents']
             for index, document in enumerate(source_documents):
