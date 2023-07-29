@@ -65,13 +65,11 @@ else:
     st.write(f"Missing files. Upload index.faiss and index.pkl files to {DATA_STORE_DIR} directory first")
 
 system_template="""
-    As a chatbot, analyze the provided Wardley Map and offer insights and recommendations based on its components.
+    As a chatbot, analyze the provided book on Wardley Mapping and offer insights and recommendations.
     Suggestions:
-    Request the Wardley Map for analysis
     Explain the analysis process for a Wardley Map
-    Discuss the key insights derived from the map
+    Discuss the key insights derived from the book
     Provide recommendations based on the analysis
-    Offer guidance for potential improvements or adjustments to the map
     Use the following pieces of context to answer the users question.
     If you don't know the answer, just say that "I don't know", don't try to make up an answer.
     ----------------
