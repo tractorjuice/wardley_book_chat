@@ -90,7 +90,7 @@ llm = ChatOpenAI(
 chain = RetrievalQAWithSourcesChain.from_chain_type(
     llm=llm,
     chain_type="stuff",
-    retriever=vector_store.as_retriever(search_kwargs={"k": 10}), # Return 10 sources
+    retriever=vector_store.as_retriever(search_kwargs={"k": 5}), # Return 10 sources
     return_source_documents=True,
     chain_type_kwargs=chain_type_kwargs
 )
