@@ -64,10 +64,18 @@ if os.path.exists(DATA_STORE_DIR):
 else:
     st.write(f"Missing files. Upload index.faiss and index.pkl files to {DATA_STORE_DIR} directory first")
 
-system_template="""Use the following pieces of context to answer the users question.
-If you don't know the answer, just say that "I don't know", don't try to make up an answer.
-----------------
-{summaries}"""
+system_template="""
+    As a chatbot, analyze the provided Wardley Map and offer insights and recommendations based on its components.
+    Suggestions:
+    Request the Wardley Map for analysis
+    Explain the analysis process for a Wardley Map
+    Discuss the key insights derived from the map
+    Provide recommendations based on the analysis
+    Offer guidance for potential improvements or adjustments to the map
+    Use the following pieces of context to answer the users question.
+    If you don't know the answer, just say that "I don't know", don't try to make up an answer.
+    ----------------
+    {summaries}"""
 prompt_messages = [
     SystemMessagePromptTemplate.from_template(system_template),
     HumanMessagePromptTemplate.from_template("{question}")
