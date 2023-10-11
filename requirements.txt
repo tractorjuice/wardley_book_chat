@@ -3,3 +3,4 @@ openai
 streamlit
 faiss-cpu
 promptlayer
+tiktoken
