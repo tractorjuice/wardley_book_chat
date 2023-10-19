@@ -29,5 +29,8 @@
   },
   "forwardPorts": [
     8501
-  ]
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/git-lfs:1": {}
+  }
 }
