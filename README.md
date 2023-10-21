@@ -1,18 +1,18 @@
 # Have an AI Chat with Simon Wardley's Book
-Chat with Simon Wardley's Book on Wardley Mapping
-\
+
+Engage in a dynamic conversation with the content of Simon Wardley's book on Wardley Mapping.
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tractorjuice/wardley_book_chat)
-\
-Chat with Simon Wardley's Book is an AI-based application that allows you to interact with the content of Simon Wardley's book using GPT-4 model and OpenAI API. It utilizes the Streamlit framework to present an interactive user interface, making it easy for users to ask questions and get answers.
-\
-\
+
+"Chat with Simon Wardley's Book" is an AI-driven application powered by the GPT-4 model and OpenAI API. Using the Streamlit framework, it offers a responsive interface, enabling users to pose questions and receive insightful responses.
+
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://wardley-book-chat.streamlit.app/)
 
 ## Features
-- Querying the book using natural language and AI.
-- Incorporates OpenAI's GPT-4 model for generating answers.
-- Uses Streamlit for a user-friendly UI.
+
+- Interact with the book through natural language and AI capabilities.
+- Leverage OpenAI's GPT-4 model for articulate answers.
+- Streamlit integration ensures an intuitive user experience.
 
 ## How to Run
 1. Clone the repository.\
@@ -33,22 +33,26 @@ To run this code, you need the following Python packages:
 ### API Keys
 The application uses the OpenAI API. You will need to obtain an API key from OpenAI and set it in the Streamlit secrets manager.
 
-### Data Store
-The application uses a local datastore located in the data_store directory. It needs the index.faiss and index.pkl files to be present in this directory. If they are missing, you will get an error message.
+### Data Management
+
+The application harnesses a local data store situated in the `data_store` directory. Both `index.faiss` and `index.pkl` files are mandatory; otherwise, the application will return an error.
 
 ## Using the Application
 Once the application is running, you can use the input box labeled "Question for the book?" to ask your question. After entering your question, the application will generate an answer and display it on the screen.
 
-## Developer Info
-This application is developed by Mark Craddock. You can follow him on Twitter at https://twitter.com/mcraddock.
+## About the Developer
+
+Mark Craddock is the brain behind this application. Connect with him and stay updated on [Twitter](https://twitter.com/mcraddock).
 
 ## Version Info
 The current version of this application is 0.1.4.
 
 ## Disclaimer
-This application is not optimized and may run out of OpenAI credits. Also, Wardley Mapping is provided courtesy of Simon Wardley and is licensed under Creative Commons Attribution Share-Alike.
+
+This application, while feature-rich, may exhaust OpenAI credits. Wardley Mapping content is a gracious provision by Simon Wardley and holds a Creative Commons Attribution Share-Alike license. Always adhere to OpenAI's use-case guidelines and employ this application responsibly.
 
 Please use responsibly and in accordance with OpenAI's use-case policy.
 
 ## License
+
 This project is licensed under Creative Commons Attribution Share-Alike.
