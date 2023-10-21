@@ -1,6 +1,8 @@
 # Have an AI Chat with Simon Wardley's Book
 Chat with Simon Wardley's Book on Wardley Mapping
-
+\
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tractorjuice/wardley_book_chat)
+\
 Chat with Simon Wardley's Book is an AI-based application that allows you to interact with the content of Simon Wardley's book using GPT-4 model and OpenAI API. It utilizes the Streamlit framework to present an interactive user interface, making it easy for users to ask questions and get answers.
 \
 \
