@@ -15,10 +15,10 @@ Engage in a dynamic conversation with the content of Simon Wardley's book on War
 - Streamlit integration ensures an intuitive user experience.
 
 ## How to Run
-1. Clone the repository.\
-2. Set the OpenAI API key in the Streamlit secrets manager.\
-3. Ensure you have the index.faiss and index.pkl files in the data_store directory.\
-4. Run the streamlit app using the command streamlit run main.py.\
+1. Clone the repository.
+2. Set the OpenAI API key in the Streamlit secrets manager.
+3. Ensure you have the index.faiss and index.pkl files in the data_store directory.
+4. Run the streamlit app using the command streamlit run main.py.
 
 ## Dependencies
 To run this code, you need the following Python packages:
