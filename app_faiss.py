@@ -2,6 +2,7 @@ import os
 import re
 import uuid
 import openai
+import promptlayer
 import streamlit as st
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQAWithSourcesChain
