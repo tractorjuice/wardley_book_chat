@@ -83,6 +83,15 @@ prompt_messages = [
     ]
 prompt = ChatPromptTemplate.from_messages(prompt_messages)
 
+if user_openai_api_key:
+    # If the user has provided an API key, use it
+    # Swap out openai for promptlayer
+    promptlayer.api_key = st.secrets["PROMPTLAYER"]
+    openai = promptlayer.openai
+    openai.api_key = user_openai_api_key
+else:
+    st.warning("Please enter your OpenAI API key", icon="⚠️")
+
 chain_type_kwargs = {"prompt": prompt}
 llm = PromptLayerChatOpenAI(
     model_name=MODEL,
