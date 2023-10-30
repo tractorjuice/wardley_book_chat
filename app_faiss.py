@@ -10,9 +10,6 @@ from langchain.chat_models import PromptLayerChatOpenAI
 from langchain.vectorstores import FAISS
 from langchain.prompts.chat import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
 
-# Set OpenAI Model and API key
-openai.api_key = st.secrets["OPENAI_API_KEY"]
-os.environ["PROMPTLAYER_API_KEY"] = st.secrets["PROMPTLAYER"]
 #MODEL = "gpt-3"
 #MODEL = "gpt-3.5-turbo"
 #MODEL = "gpt-3.5-turbo-0613"
@@ -43,18 +40,22 @@ def clean_text(text):
     text = remove_markdown(text)
     return text
 
+if "session_id" not in st.session_state:
+    st.session_state.session_id = str(uuid.uuid4())
+
 st.set_page_config(page_title="Chat with Simon Wardley's Book")
 st.title("Chat with Simon Wardley's Book")
 st.sidebar.markdown("# Query Simon's book using AI")
-st.sidebar.divider()
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
-st.sidebar.markdown("Current Version: 1.0.0")
-st.sidebar.divider()
-st.sidebar.markdown("Using GPT-4 API")
+st.sidebar.markdown("Current Version: 1.1.0")
+st.sidebar.markdown("Using gpt-3.5-turbo-16k-0613")
 st.sidebar.markdown("Uses FAISS")
-st.sidebar.markdown("May run out of OpenAI credits")
-st.sidebar.divider()
+st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.markdown("Wardley Mapping is provided courtesy of Simon Wardley and licensed Creative Commons Attribution Share-Alike.")
+st.sidebar.divider()
+
+# Check if the user has provided an API key, otherwise default to the secret
+user_openai_api_key = st.sidebar.text_input("Enter your OpenAI API Key:", placeholder="sk-...", type="password")
 
 # Get datastore
 DATA_STORE_DIR = "data_store"
@@ -98,10 +99,7 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(
     return_source_documents=True,
     chain_type_kwargs=chain_type_kwargs
 )
-
-if "session_id" not in st.session_state:
-    st.session_state.session_id = str(uuid.uuid4())
-    
+   
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -110,23 +108,24 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-if query := st.chat_input("What question do you have for the book?"):
-    st.session_state.messages.append({"role": "user", "content": query})
-    with st.chat_message("user"):
-        st.markdown(query)
-
-    with st.spinner():
-        with st.chat_message("assistant"):
-            response = chain(query)
-            st.markdown(response['answer'])
-            st.divider()
-            
-            source_documents = response['source_documents']
-            for index, document in enumerate(source_documents):
-                if 'source' in document.metadata:
-                    source_details = document.metadata['source']
-                    cleaned_content = clean_text(document.page_content)
-                    st.warning(f"Source {index + 1}: Page {document.metadata['page']}\n")
-                    st.write(f"{cleaned_content}\n")
-
-        st.session_state.messages.append({"role": "assistant", "content": response['answer']})
+if user_openai_api_key:
+    if query := st.chat_input("What question do you have for the book?"):
+        st.session_state.messages.append({"role": "user", "content": query})
+        with st.chat_message("user"):
+            st.markdown(query)
+    
+        with st.spinner():
+            with st.chat_message("assistant"):
+                response = chain(query)
+                st.markdown(response['answer'])
+                st.divider()
+                
+                source_documents = response['source_documents']
+                for index, document in enumerate(source_documents):
+                    if 'source' in document.metadata:
+                        source_details = document.metadata['source']
+                        cleaned_content = clean_text(document.page_content)
+                        st.warning(f"Source {index + 1}: Page {document.metadata['page']}\n")
+                        st.write(f"{cleaned_content}\n")
+    
+            st.session_state.messages.append({"role": "assistant", "content": response['answer']})
