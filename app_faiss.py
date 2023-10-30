@@ -1,5 +1,6 @@
 import os
 import re
+import uuid
 import openai
 import streamlit as st
 from langchain.chat_models import ChatOpenAI
@@ -87,7 +88,7 @@ llm = PromptLayerChatOpenAI(
     model_name=MODEL,
     temperature=0,
     max_tokens=2000,
-    pl_tags=["bookchat"],
+    pl_tags=["bookchat", st.session_state.session_id],
 )  # Modify model_name if you have access to GPT-4
 
 chain = RetrievalQAWithSourcesChain.from_chain_type(
@@ -98,6 +99,9 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(
     chain_type_kwargs=chain_type_kwargs
 )
 
+if "session_id" not in st.session_state:
+    st.session_state.session_id = str(uuid.uuid4())
+    
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
