@@ -1,5 +1,5 @@
 langchain
-openai
+openai==0.28.1
 streamlit
 faiss-cpu
 promptlayer
