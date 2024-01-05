@@ -70,6 +70,8 @@ custom_system_template="""
     Provide recommendations based on the analysis
     Use the following pieces of context to answer the users question.
     If you don't know the answer, just say that "I don't know", don't try to make up an answer.
+    Your primary objective is to help the user formulate excellent answers by utilizing the context of the specific service,
+    relevant details from your knowledge and insights from previous conversations.
     ----------------
     Reference Context and Knowledge from Similar Existing Services: {context}
     Previous Conversations: {chat_history}"""
