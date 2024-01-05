@@ -104,12 +104,12 @@ chain = ConversationalRetrievalChain.from_llm(
     llm=llm,
     retriever=vector_store.as_retriever(
         search_kwargs={
-            "k": 5,
+            "k": 3,
             "score_threshold": .95,
             }
         ),
     chain_type="stuff",
-    rephrase_question = False,
+    #rephrase_question = False,
     return_source_documents=True,
     memory=memory,
     combine_docs_chain_kwargs={'prompt': prompt}
