@@ -110,6 +110,7 @@ chain = ConversationalRetrievalChain.from_llm(
         ),
     chain_type="stuff",
     rephrase_question = False,
+    return_source_documents=True,
     memory=memory,
     combine_docs_chain_kwargs={'prompt': prompt}
 )
