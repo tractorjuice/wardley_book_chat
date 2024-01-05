@@ -14,8 +14,8 @@ from langchain.prompts.chat import ChatPromptTemplate, SystemMessagePromptTempla
 #MODEL = "gpt-3"
 #MODEL = "gpt-3.5-turbo"
 #MODEL = "gpt-3.5-turbo-0613"
-#MODEL = "gpt-3.5-turbo-16k"
-MODEL = "gpt-3.5-turbo-16k-0613"
+MODEL = "gpt-3.5-turbo-16k
+#MODEL = "gpt-3.5-turbo-16k-0613"
 #MODEL = "gpt-4"
 #MODEL = "gpt-4-0613"
 #MODEL = "gpt-4-32k-0613"
@@ -77,7 +77,8 @@ system_template="""
     Use the following pieces of context to answer the users question.
     If you don't know the answer, just say that "I don't know", don't try to make up an answer.
     ----------------
-    {summaries}"""
+    {chat_history}"""
+
 prompt_messages = [
     SystemMessagePromptTemplate.from_template(system_template),
     HumanMessagePromptTemplate.from_template("{question}")
@@ -93,20 +94,27 @@ if user_openai_api_key:
 else:
     st.warning("Please enter your OpenAI API key", icon="⚠️")
 
-chain_type_kwargs = {"prompt": prompt}
+memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True)
+
 llm = PromptLayerChatOpenAI(
     model_name=MODEL,
     temperature=0,
-    max_tokens=2000,
+    max_tokens=500,
     pl_tags=["bookchat", st.session_state.session_id],
 )  # Modify model_name if you have access to GPT-4
 
-chain = RetrievalQAWithSourcesChain.from_chain_type(
+chain = ConversationalRetrievalChain.from_llm(
     llm=llm,
+    retriever=vectordb.as_retriever(
+        search_kwargs={
+            "k": 5,
+            "score_threshold": .95,
+            }
+        ),
     chain_type="stuff",
-    retriever=vector_store.as_retriever(search_type="mmr", search_kwargs={"k": 5}), # Use MMR search and return 5 (max 20) sources
-    return_source_documents=True,
-    chain_type_kwargs=chain_type_kwargs
+    rephrase_question = False,
+    memory=memory,
+    combine_docs_chain_kwargs={'prompt': prompt}
 )
    
 if "messages" not in st.session_state:
