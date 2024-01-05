@@ -12,14 +12,7 @@ from langchain.chat_models import PromptLayerChatOpenAI
 from langchain.vectorstores import FAISS
 from langchain.prompts.chat import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
 
-#MODEL = "gpt-3"
-#MODEL = "gpt-3.5-turbo"
-#MODEL = "gpt-3.5-turbo-0613"
 MODEL = "gpt-3.5-turbo-16k"
-#MODEL = "gpt-3.5-turbo-16k-0613"
-#MODEL = "gpt-4"
-#MODEL = "gpt-4-0613"
-#MODEL = "gpt-4-32k-0613"
 
 # Remove HTML from sources
 def remove_html_tags(text):
@@ -106,7 +99,7 @@ llm = PromptLayerChatOpenAI(
 
 chain = ConversationalRetrievalChain.from_llm(
     llm=llm,
-    retriever=vectordb.as_retriever(
+    retriever=vector_store.as_retriever(
         search_kwargs={
             "k": 5,
             "score_threshold": .95,
