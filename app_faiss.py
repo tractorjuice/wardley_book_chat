@@ -112,7 +112,7 @@ if "chain" not in st.session_state:
         retriever=st.session_state.vector_store.as_retriever(
             search_kwargs={
                 "k": 3,
-                "score_threshold": .95,
+                #"score_threshold": .95,
                 }
             ),
         chain_type="stuff",
