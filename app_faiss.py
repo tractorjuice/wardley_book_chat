@@ -119,8 +119,8 @@ if user_openai_api_key:
         combine_docs_chain_kwargs={'prompt': prompt}
     )
     
-    else:
-        st.warning("Please enter your OpenAI API key", icon="⚠️")
+else:
+    st.warning("Please enter your OpenAI API key", icon="⚠️")
 
 for message in st.session_state.messages:
     if message["role"] in ["user", "assistant"]:
