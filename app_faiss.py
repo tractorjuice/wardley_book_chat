@@ -62,7 +62,7 @@ if os.path.exists(DATA_STORE_DIR):
 else:
     st.write(f"Missing files. Upload index.faiss and index.pkl files to {DATA_STORE_DIR} directory first")
 
-system_template="""
+custom_system_template="""
     As a chatbot, analyze the provided book on Wardley Mapping and offer insights and recommendations.
     Suggestions:
     Explain the analysis process for a Wardley Map
@@ -73,9 +73,11 @@ system_template="""
     ----------------
     {chat_history}"""
 
+custom_user_template = "Question:'''{question}'''"
+
 prompt_messages = [
-    SystemMessagePromptTemplate.from_template(system_template),
-    HumanMessagePromptTemplate.from_template("{question}")
+    SystemMessagePromptTemplate.from_template(custom_system_template),
+    HumanMessagePromptTemplate.from_template(custom_user_template)
     ]
 prompt = ChatPromptTemplate.from_messages(prompt_messages)
 
