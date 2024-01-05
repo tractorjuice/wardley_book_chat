@@ -115,7 +115,7 @@ if "chain" not in st.session_state:
                 "score_threshold": .95,
                 }
             ),
-        chain_type="stuff",
+        chain_type="map_reduce",
         rephrase_question = True,
         return_source_documents=True,
         memory=st.session_state.memory,
