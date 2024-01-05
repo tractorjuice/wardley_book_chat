@@ -71,7 +71,8 @@ custom_system_template="""
     Use the following pieces of context to answer the users question.
     If you don't know the answer, just say that "I don't know", don't try to make up an answer.
     ----------------
-    {chat_history}"""
+    Reference Context and Knowledge from Similar Existing Services: {context}
+    Previous Conversations: {chat_history}"""
 
 custom_user_template = "Question:'''{question}'''"
 
