@@ -91,7 +91,7 @@ if user_openai_api_key:
 else:
     st.warning("Please enter your OpenAI API key", icon="⚠️")
 
-memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, return_source_documents=True)
+memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, output_key='answer')
 
 llm = PromptLayerChatOpenAI(
     model_name=MODEL,
