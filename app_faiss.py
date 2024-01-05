@@ -35,6 +35,12 @@ def clean_text(text):
     text = remove_markdown(text)
     return text
 
+if "session_id" not in st.session_state:
+    st.session_state.session_id = str(uuid.uuid4())
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
 st.set_page_config(page_title="Chat with Simon Wardley's Book")
 st.title("Chat with Simon Wardley's Book")
 st.sidebar.markdown("# Query Simon's book using AI")
@@ -45,22 +51,16 @@ st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.markdown("Wardley Mapping is provided courtesy of Simon Wardley and licensed Creative Commons Attribution Share-Alike.")
 st.sidebar.divider()
 
-if "session_id" not in st.session_state:
-    st.session_state.session_id = str(uuid.uuid4())
-
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
 # Check if the user has provided an API key, otherwise default to the secret
 user_openai_api_key = st.sidebar.text_input("Enter your OpenAI API Key:", placeholder="sk-...", type="password")
 
-if user_openai_api_key:
     
-    # Get datastore
-    DATA_STORE_DIR = "data_store"
-    
+# Get datastore
+DATA_STORE_DIR = "data_store"
+
+if "vector_store" not in st.session_state:
     if os.path.exists(DATA_STORE_DIR):
-        vector_store = FAISS.load_local(
+        st.session_state.vector_store = FAISS.load_local(
             DATA_STORE_DIR,
             OpenAIEmbeddings()
         )
@@ -94,19 +94,22 @@ if user_openai_api_key:
     promptlayer.api_key = st.secrets["PROMPTLAYER"]
     openai = promptlayer.openai
     openai.api_key = user_openai_api_key
-    
-    memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, output_key='answer')
-    
-    llm = PromptLayerChatOpenAI(
+
+if "memory" not in st.session_state:
+    st.session_state.memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, output_key='answer')
+
+if "llm" not in st.session_state:
+    st.session_state.llm = PromptLayerChatOpenAI(
         model_name=MODEL,
         temperature=0,
         max_tokens=500,
         pl_tags=["bookchat", st.session_state.session_id],
     )  # Modify model_name if you have access to GPT-4
-    
-    chain = ConversationalRetrievalChain.from_llm(
-        llm=llm,
-        retriever=vector_store.as_retriever(
+
+if "chain" not in st.session_state:
+    st.session_state.chain = ConversationalRetrievalChain.from_llm(
+        llm=st.session_state.llm,
+        retriever=st.session_state.vector_store.as_retriever(
             search_kwargs={
                 "k": 3,
                 "score_threshold": .95,
@@ -115,12 +118,9 @@ if user_openai_api_key:
         chain_type="stuff",
         rephrase_question = True,
         return_source_documents=True,
-        memory=memory,
+        memory=st.session_state.memory,
         combine_docs_chain_kwargs={'prompt': prompt}
     )
-    
-else:
-    st.warning("Please enter your OpenAI API key", icon="⚠️")
 
 for message in st.session_state.messages:
     if message["role"] in ["user", "assistant"]:
@@ -148,3 +148,5 @@ if user_openai_api_key:
                         st.write(f"{cleaned_content}\n")
     
             st.session_state.messages.append({"role": "assistant", "content": response['answer']})
+else:
+    st.warning("Please enter your OpenAI API key", icon="⚠️")
