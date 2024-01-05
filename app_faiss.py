@@ -102,7 +102,7 @@ if "llm" not in st.session_state:
     st.session_state.llm = PromptLayerChatOpenAI(
         model_name=MODEL,
         temperature=0,
-        max_tokens=500,
+        max_tokens=300,
         pl_tags=["bookchat", st.session_state.session_id],
     )  # Modify model_name if you have access to GPT-4
 
