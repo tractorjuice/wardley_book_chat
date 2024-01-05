@@ -91,7 +91,7 @@ if user_openai_api_key:
 else:
     st.warning("Please enter your OpenAI API key", icon="⚠️")
 
-memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True)
+memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, return_source_documents=True)
 
 llm = PromptLayerChatOpenAI(
     model_name=MODEL,
@@ -131,7 +131,7 @@ if user_openai_api_key:
     
         with st.spinner():
             with st.chat_message("assistant"):
-                response, source = chain(query)
+                response = chain(query)
                 st.markdown(response['answer'])
                 st.divider()
                 
