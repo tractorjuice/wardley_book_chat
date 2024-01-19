@@ -4,12 +4,12 @@ import uuid
 import openai
 import promptlayer
 import streamlit as st
-from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.chains import ConversationalRetrievalChain
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.chat_models import PromptLayerChatOpenAI
-from langchain.vectorstores import FAISS
+from langchain_community.chat_models import PromptLayerChatOpenAI
+from langchain_community.vectorstores import FAISS
 from langchain.prompts.chat import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
 
 MODEL = "gpt-3.5-turbo-16k"
