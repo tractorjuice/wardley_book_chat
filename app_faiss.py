@@ -1,7 +1,7 @@
 import os
 import re
 import uuid
-import openai
+from langchain_openai import OpenAI
 import promptlayer
 import streamlit as st
 from langchain_community.chat_models import ChatOpenAI
