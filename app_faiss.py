@@ -63,7 +63,6 @@ st.sidebar.divider()
 # Check if the user has provided an API key, otherwise default to the secret
 user_openai_api_key = st.sidebar.text_input("Enter your OpenAI API Key:", placeholder="sk-...", type="password")
 
-    
 # Get datastore
 DATA_STORE_DIR = "data_store"
 
