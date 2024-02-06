@@ -1,4 +1,3 @@
-openai==0.28.1
 langchain-community
 langchain-core
 langchain-openai
