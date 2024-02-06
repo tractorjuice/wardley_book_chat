@@ -1,13 +1,11 @@
-import os
-import re
-import uuid
-from langchain_openai import OpenAI
-import promptlayer
+import os, re, uuid
+#import promptlayer
 import streamlit as st
 from langchain_community.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.chains import ConversationalRetrievalChain
 from langchain_openai import OpenAIEmbeddings
+from langchain_openai import OpenAI
 from langchain_community.chat_models import PromptLayerChatOpenAI
 from langchain_community.vectorstores import FAISS
 from langchain.prompts.chat import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
