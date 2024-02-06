@@ -120,7 +120,7 @@ if user_openai_api_key:
             llm=st.session_state.llm,
             retriever=st.session_state.vector_store.as_retriever(
                 search_kwargs={
-                    "k": 20,
+                    "k": 3,
                     #"score_threshold": .95,
                     }
                 ),
