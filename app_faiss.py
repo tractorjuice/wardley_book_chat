@@ -133,6 +133,9 @@ if user_openai_api_key:
             memory=st.session_state.memory,
             combine_docs_chain_kwargs={'prompt': prompt}
         )
+
+else:
+    st.warning("Please enter your OpenAI API key", icon="⚠️")
     
 for message in st.session_state.messages:
     if message["role"] in ["user", "assistant"]:
@@ -159,5 +162,3 @@ if query := st.chat_input("What question do you have for the book?"):
                     st.write(f"{cleaned_content}\n")
 
         st.session_state.messages.append({"role": "assistant", "content": response['answer']})
-else:
-    st.warning("Please enter your OpenAI API key", icon="⚠️")
