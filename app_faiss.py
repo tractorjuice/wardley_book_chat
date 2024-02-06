@@ -63,34 +63,46 @@ st.sidebar.divider()
 # Check if the user has provided an API key, otherwise default to the secret
 user_openai_api_key = st.sidebar.text_input("Enter your OpenAI API Key:", placeholder="sk-...", type="password")
 
-custom_system_template="""
-    As a friendly and helpful assistant with expert knowledge in Wardley Mapping,
-    Analyze the provided book on Wardley Mapping and offer insights and recommendations.
-    Suggestions:
-    Explain the analysis process for a Wardley Map
-    Discuss the key insights derived from the book
-    Provide recommendations based on the analysis
-    Use the following pieces of context to answer the users question.
-    If you don't know the answer, just say that "I don't know", don't try to make up an answer.
-    Your primary objective is to help the user formulate excellent answers by utilizing the context about the book and 
-    relevant details from your knowledge, along with insights from previous conversations.
-    ----------------
-    Reference Context and Knowledge from Similar Existing Services: {context}
-    Previous Conversations: {chat_history}"""
+# Get datastore
+DATA_STORE_DIR = "data_store"
 
-custom_user_template = "Question:'''{question}'''"
-
-prompt_messages = [
-    SystemMessagePromptTemplate.from_template(custom_system_template),
-    HumanMessagePromptTemplate.from_template(custom_user_template)
-    ]
-prompt = ChatPromptTemplate.from_messages(prompt_messages)
-
-# If the user has provided an API key, use it
-# Swap out openai for promptlayer
-promptlayer.api_key = st.secrets["PROMPTLAYER"]
-openai = promptlayer.openai
-openai.api_key = user_openai_api_key
+if "vector_store" not in st.session_state:
+    if os.path.exists(DATA_STORE_DIR):
+        st.session_state.vector_store = FAISS.load_local(
+            DATA_STORE_DIR,
+            OpenAIEmbeddings()
+        )
+    else:
+        st.write(f"Missing files. Upload index.faiss and index.pkl files to {DATA_STORE_DIR} directory first")
+    
+    custom_system_template="""
+        As a friendly and helpful assistant with expert knowledge in Wardley Mapping,
+        Analyze the provided book on Wardley Mapping and offer insights and recommendations.
+        Suggestions:
+        Explain the analysis process for a Wardley Map
+        Discuss the key insights derived from the book
+        Provide recommendations based on the analysis
+        Use the following pieces of context to answer the users question.
+        If you don't know the answer, just say that "I don't know", don't try to make up an answer.
+        Your primary objective is to help the user formulate excellent answers by utilizing the context about the book and 
+        relevant details from your knowledge, along with insights from previous conversations.
+        ----------------
+        Reference Context and Knowledge from Similar Existing Services: {context}
+        Previous Conversations: {chat_history}"""
+    
+    custom_user_template = "Question:'''{question}'''"
+    
+    prompt_messages = [
+        SystemMessagePromptTemplate.from_template(custom_system_template),
+        HumanMessagePromptTemplate.from_template(custom_user_template)
+        ]
+    prompt = ChatPromptTemplate.from_messages(prompt_messages)
+    
+    # If the user has provided an API key, use it
+    # Swap out openai for promptlayer
+    promptlayer.api_key = st.secrets["PROMPTLAYER"]
+    openai = promptlayer.openai
+    openai.api_key = user_openai_api_key
 
 if "memory" not in st.session_state:
     st.session_state.memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, output_key='answer')
