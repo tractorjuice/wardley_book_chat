@@ -134,30 +134,30 @@ if user_openai_api_key:
             combine_docs_chain_kwargs={'prompt': prompt}
         )
     
-    for message in st.session_state.messages:
-        if message["role"] in ["user", "assistant"]:
-            with st.chat_message(message["role"]):
-                st.markdown(message["content"])
-    
-    if query := st.chat_input("What question do you have for the book?"):
-        st.session_state.messages.append({"role": "user", "content": query})
-        with st.chat_message("user"):
-            st.markdown(query)
-    
-        with st.spinner():
-            with st.chat_message("assistant"):
-                response = st.session_state.chain(query)
-                st.markdown(response['answer'])
-                st.divider()
-                
-                source_documents = response['source_documents']
-                for index, document in enumerate(source_documents):
-                    if 'source' in document.metadata:
-                        source_details = document.metadata['source']
-                        cleaned_content = clean_text(document.page_content)
-                        st.warning(f"Source {index + 1}: Page {document.metadata['page']}\n")
-                        st.write(f"{cleaned_content}\n")
-    
-            st.session_state.messages.append({"role": "assistant", "content": response['answer']})
+for message in st.session_state.messages:
+    if message["role"] in ["user", "assistant"]:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+if query := st.chat_input("What question do you have for the book?"):
+    st.session_state.messages.append({"role": "user", "content": query})
+    with st.chat_message("user"):
+        st.markdown(query)
+
+    with st.spinner():
+        with st.chat_message("assistant"):
+            response = st.session_state.chain(query)
+            st.markdown(response['answer'])
+            st.divider()
+            
+            source_documents = response['source_documents']
+            for index, document in enumerate(source_documents):
+                if 'source' in document.metadata:
+                    source_details = document.metadata['source']
+                    cleaned_content = clean_text(document.page_content)
+                    st.warning(f"Source {index + 1}: Page {document.metadata['page']}\n")
+                    st.write(f"{cleaned_content}\n")
+
+        st.session_state.messages.append({"role": "assistant", "content": response['answer']})
 else:
     st.warning("Please enter your OpenAI API key", icon="⚠️")
