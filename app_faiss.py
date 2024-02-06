@@ -105,9 +105,6 @@ if user_openai_api_key:
             HumanMessagePromptTemplate.from_template(custom_user_template)
             ]
         prompt = ChatPromptTemplate.from_messages(prompt_messages)
-        
-else:
-    st.warning("Please enter your OpenAI API key", icon="⚠️")
     
 if "memory" not in st.session_state:
     st.session_state.memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, output_key='answer')
@@ -135,6 +132,9 @@ if "chain" not in st.session_state:
         memory=st.session_state.memory,
         combine_docs_chain_kwargs={'prompt': prompt}
     )
+
+else:
+    st.warning("Please enter your OpenAI API key", icon="⚠️")
   
 for message in st.session_state.messages:
     if message["role"] in ["user", "assistant"]:
