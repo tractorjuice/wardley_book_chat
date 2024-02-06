@@ -14,8 +14,8 @@ from langchain.prompts.chat import ChatPromptTemplate, SystemMessagePromptTempla
 
 # gpt-3.5-turbo, gpt-4, and gpt-4-turbo-preview point to the latest model version
 #MODEL = "gpt-3.5-turbo" # 4K, Sept 2021. Legacy. Currently points to gpt-3.5-turbo-0613.
-MODEL = "gpt-3.5-turbo-16k" # 16K, Sept 2021. Legacy. Snapshot of gpt-3.5-turbo from June 13th 2023. Will be deprecated on June 13, 2024
-#MODEL = "gpt-3.5-turbo-1106" # 16K, Sept 2021. New Updated GPT 3.5 Turbo. The latest GPT-3.5 Turbo model with improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more. Returns a maximum of 4,096 output tokens.
+#MODEL = "gpt-3.5-turbo-16k" # 16K, Sept 2021. Legacy. Snapshot of gpt-3.5-turbo from June 13th 2023. Will be deprecated on June 13, 2024
+MODEL = "gpt-3.5-turbo-1106" # 16K, Sept 2021. New Updated GPT 3.5 Turbo. The latest GPT-3.5 Turbo model with improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more. Returns a maximum of 4,096 output tokens.
 #MODEL = "gpt-4" # 8K, Sept 2021
 #MODEL = "gpt-4-32k" # 32K, Sept 2021
 #MODEL = "gpt-4-turbo-preview" # 128K, Apr 2023
@@ -54,7 +54,7 @@ st.set_page_config(page_title="Chat with Simon Wardley's Book")
 st.title("Chat with Simon Wardley's Book")
 st.sidebar.markdown("# Query Simon's book using AI")
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
-st.sidebar.markdown("Current Version: 1.3.0")
+st.sidebar.markdown("Current Version: 1.1.0")
 st.sidebar.markdown("Using gpt-3.5-turbo-16k-0613")
 st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.markdown("Wardley Mapping is provided courtesy of Simon Wardley and licensed Creative Commons Attribution Share-Alike.")
@@ -159,3 +159,4 @@ if user_openai_api_key:
             st.session_state.messages.append({"role": "assistant", "content": response['answer']})
 else:
     st.warning("Please enter your OpenAI API key", icon="⚠️")
+    
