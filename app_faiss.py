@@ -67,7 +67,12 @@ user_openai_api_key = st.sidebar.text_input("Enter your OpenAI API Key:", placeh
 DATA_STORE_DIR = "data_store"
 
 if user_openai_api_key:
-    os.environ["OPENAI_API_KEY"] = user_openai_api_key
+    
+    # If the user has provided an API key, use it
+    # Swap out openai for promptlayer
+    promptlayer.api_key = st.secrets["PROMPTLAYER"]
+    openai = promptlayer.openai
+    openai.api_key = user_openai_api_key
     
     if "vector_store" not in st.session_state:
         if os.path.exists(DATA_STORE_DIR):
@@ -100,12 +105,6 @@ if user_openai_api_key:
             HumanMessagePromptTemplate.from_template(custom_user_template)
             ]
         prompt = ChatPromptTemplate.from_messages(prompt_messages)
-        
-        # If the user has provided an API key, use it
-        # Swap out openai for promptlayer
-        promptlayer.api_key = st.secrets["PROMPTLAYER"]
-        openai = promptlayer.openai
-        openai.api_key = user_openai_api_key
     
     if "memory" not in st.session_state:
         st.session_state.memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, output_key='answer')
