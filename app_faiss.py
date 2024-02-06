@@ -1,6 +1,4 @@
-import os
-import re
-import uuid
+import os, re, uuid
 from langchain_openai import OpenAI
 import promptlayer
 import streamlit as st
@@ -149,7 +147,7 @@ if query := st.chat_input("What question do you have for the book?"):
 
     with st.spinner():
         with st.chat_message("assistant"):
-            #response = st.session_state.chain(query)
+            response = st.session_state.chain(query)
             st.markdown(response['answer'])
             st.divider()
             
