@@ -105,37 +105,37 @@ if user_openai_api_key:
             HumanMessagePromptTemplate.from_template(custom_user_template)
             ]
         prompt = ChatPromptTemplate.from_messages(prompt_messages)
-    
-    if "memory" not in st.session_state:
-        st.session_state.memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, output_key='answer')
-    
-    if "llm" not in st.session_state:
-        st.session_state.llm = PromptLayerChatOpenAI(
-            model=MODEL,
-            temperature=0,
-            max_tokens=300,
-            pl_tags=["bookchat", st.session_state.session_id],
-        )  # Modify model_name if you have access to GPT-4
-    
-    if "chain" not in st.session_state:
-        st.session_state.chain = ConversationalRetrievalChain.from_llm(
-            llm=st.session_state.llm,
-            retriever=st.session_state.vector_store.as_retriever(
-                search_kwargs={
-                    "k": 3,
-                    #"score_threshold": .95,
-                    }
-                ),
-            chain_type="stuff",
-            rephrase_question = True,
-            return_source_documents=True,
-            memory=st.session_state.memory,
-            combine_docs_chain_kwargs={'prompt': prompt}
-        )
-
+        
 else:
     st.warning("Please enter your OpenAI API key", icon="⚠️")
     
+if "memory" not in st.session_state:
+    st.session_state.memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, output_key='answer')
+
+if "llm" not in st.session_state:
+    st.session_state.llm = PromptLayerChatOpenAI(
+        model=MODEL,
+        temperature=0,
+        max_tokens=300,
+        pl_tags=["bookchat", st.session_state.session_id],
+    )  # Modify model_name if you have access to GPT-4
+
+if "chain" not in st.session_state:
+    st.session_state.chain = ConversationalRetrievalChain.from_llm(
+        llm=st.session_state.llm,
+        retriever=st.session_state.vector_store.as_retriever(
+            search_kwargs={
+                "k": 3,
+                #"score_threshold": .95,
+                }
+            ),
+        chain_type="stuff",
+        rephrase_question = True,
+        return_source_documents=True,
+        memory=st.session_state.memory,
+        combine_docs_chain_kwargs={'prompt': prompt}
+    )
+  
 for message in st.session_state.messages:
     if message["role"] in ["user", "assistant"]:
         with st.chat_message(message["role"]):
