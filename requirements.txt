@@ -1,6 +1,7 @@
 langchain-community
 langchain-core
-langchain-openai
+#langchain-openai
+openai==0.28.1
 langchain
 streamlit
 faiss-cpu
