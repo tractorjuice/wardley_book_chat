@@ -90,7 +90,6 @@ if user_openai_api_key:
             Your primary objective is to help the user formulate excellent answers by utilizing the context about the book and 
             relevant details from your knowledge, along with insights from previous conversations.
             ----------------
-            Reference Context and Knowledge from Similar Existing Services: {context}
             Previous Conversations: {chat_history}"""
         
         custom_user_template = "Question:'''{question}'''"
