@@ -73,7 +73,8 @@ if user_openai_api_key:
         if os.path.exists(DATA_STORE_DIR):
             st.session_state.vector_store = FAISS.load_local(
                 DATA_STORE_DIR,
-                OpenAIEmbeddings()
+                OpenAIEmbeddings(),
+                allow_dangerous_deserialization='True',
             )
         else:
             st.write(f"Missing files. Upload index.faiss and index.pkl files to {DATA_STORE_DIR} directory first")
