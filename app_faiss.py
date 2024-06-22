@@ -2,26 +2,15 @@ import os
 import re
 import uuid
 from langchain_openai import OpenAI
-import promptlayer
 import streamlit as st
 from langchain_community.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.chains import ConversationalRetrievalChain
 from langchain_openai import OpenAIEmbeddings
-from langchain_community.chat_models import PromptLayerChatOpenAI
 from langchain_community.vectorstores import FAISS
 from langchain.prompts.chat import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
 
-# gpt-3.5-turbo, gpt-4, and gpt-4-turbo-preview point to the latest model version
-#MODEL = "gpt-3.5-turbo" # 4K, Sept 2021. Legacy. Currently points to gpt-3.5-turbo-0613.
-#MODEL = "gpt-3.5-turbo-16k" # 16K, Sept 2021. Legacy. Snapshot of gpt-3.5-turbo from June 13th 2023. Will be deprecated on June 13, 2024
-MODEL = "gpt-3.5-turbo-1106" # 16K, Sept 2021. New Updated GPT 3.5 Turbo. The latest GPT-3.5 Turbo model with improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more. Returns a maximum of 4,096 output tokens.
-#MODEL = "gpt-4" # 8K, Sept 2021
-#MODEL = "gpt-4-32k" # 32K, Sept 2021
-#MODEL = "gpt-4-turbo-preview" # 128K, Apr 2023
-#MODEL = "gpt-4-1106-preview" # 128K, Apr 2023
-#MODEL = "gpt-4o"
-
+MODEL = "gpt-3.5-turbo"
 DEBUG = True # True to overwrite files that already exist
 
 # Remove HTML from sources
@@ -99,23 +88,16 @@ if user_openai_api_key:
             HumanMessagePromptTemplate.from_template(custom_user_template)
             ]
         prompt = ChatPromptTemplate.from_messages(prompt_messages)
-        
-        # If the user has provided an API key, use it
-        # Swap out openai for promptlayer
-        promptlayer.api_key = st.secrets["PROMPTLAYER"]
-        openai = promptlayer.openai
-        openai.api_key = user_openai_api_key
     
     if "memory" not in st.session_state:
         st.session_state.memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, output_key='answer')
     
     if "llm" not in st.session_state:
-        st.session_state.llm = PromptLayerChatOpenAI(
+        st.session_state.llm = ChatOpenAI(
             model_name=MODEL,
             temperature=0,
-            max_tokens=300,
-            pl_tags=["bookchat", st.session_state.session_id],
-        )  # Modify model_name if you have access to GPT-4
+            max_tokens=400,
+        )
     
     if "chain" not in st.session_state:
         st.session_state.chain = ConversationalRetrievalChain.from_llm(
